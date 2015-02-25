@@ -1,5 +1,5 @@
 var pacman,
-    pacmanDiv, updateStartTime, requestId, timeSinceLastUpdate;
+    pacmanDiv, updateStartTime, requestId, timeSinceLastUpdate, c, ctx;
 
 function start() {
 
@@ -11,13 +11,16 @@ function start() {
 
     updateStartTime = window.performance.now();
     requestId = window.requestAnimationFrame(update);
-
+    c = document.getElementById("c");
+    ctx = c.getContext("2d");
 }
 
 function update(timeStamp) {
 
     timeSinceLastUpdate = timeStamp - updateStartTime;
     updateStartTime = window.performance.now();
+
+    ctx.clearRect(0, 0, 800, 600);
 
     //Updatera positioner
     for (var i = 0; i < pacmen.length; i++) {
@@ -39,8 +42,10 @@ function Pacman() {
     this.move = function (timeSinceLastMove) {
         this.x += (timeSinceLastMove * this.speedX) / 1000;
         this.y += (timeSinceLastMove * this.speedY) / 1000;
-        this.pacmanDiv.style.left = this.x + "px";
-        this.pacmanDiv.style.top = this.y + "px";
+        //this.pacmanDiv.style.left = this.x + "px";
+        //this.pacmanDiv.style.top = this.y + "px";
+        ctx.fillRect(this.x, this.y, 100, 100);
+
     }
 
 }
